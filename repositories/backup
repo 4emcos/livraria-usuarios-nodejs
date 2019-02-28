@@ -1,0 +1,31 @@
+const logger = require('../config/logger');
+
+const livros = [];
+let proxID = 0;
+
+
+const getLivroIdx = id => livros.map (l => l.id).indexOf(id);
+
+const LivrosRepository = {
+    adicionar: (livro) => {
+        let novo = {
+            id: proxId++,
+            titulo: livro.titulo,
+            autor: livro.autor
+        };
+        livros.push(novo);
+        return novo;
+    },
+
+    recuperar : id => livros[getLivroIdx(id)],
+    alterar : (id,novo) => {
+        livros[getLivroIdx(id)] = novo;
+        novo.id = id;
+        return novo;
+    },
+    remover: id => livros.splice(getLivrosIdx(id), 1),
+    todos: () => livros
+};
+
+
+module.exports = LivrosRepository;
